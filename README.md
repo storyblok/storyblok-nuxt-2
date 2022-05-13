@@ -27,7 +27,9 @@
   </a>
 </p>
 
-> Try out the **[LIVE DEMO](https://stackblitz.com/edit/nuxt-2-sdk-demo?file=pages%2Findex.vue&terminal=dev)** on Stackblitz and play with code yourself!
+### Live Demo
+
+If you are in a hurry, check out our official **[live demo](https://stackblitz.com/edit/nuxt-2-sdk-demo?file=pages%2Findex.vue)** on Stackblitz.
 
 ## 🚀 Usage
 

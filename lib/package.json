@@ -42,10 +42,13 @@
       "main"
     ]
   },
-  "repository": "https://github.com/storyblok/storyblok-nuxt",
+  "repository": "https://github.com/storyblok/storyblok-nuxt-2",
   "contributors": [
     {
       "name": "Alexander Feiglstorfer <delooks@gmail.com>"
     }
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }
