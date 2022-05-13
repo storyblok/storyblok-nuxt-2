@@ -1,0 +1,1 @@
+# storyblok-nuxt-2
