@@ -1,0 +1,51 @@
+{
+  "name": "@storyblok/nuxt-2",
+  "version": "0.0.1",
+  "description": "Storyblok Nuxt.js module",
+  "exports": {
+    ".": {
+      "import": "./dist/storyblok-nuxt.mjs",
+      "require": "./dist/storyblok-nuxt.js"
+    },
+    "./module": "./module/index.js"
+  },
+  "main": "./dist/storyblok-nuxt.js",
+  "module": "./dist/storyblok-nuxt.mjs",
+  "files": [
+    "dist",
+    "module"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "playground:run": "cd ../playground && npm run start",
+    "pretest:e2e": "cd ../playground && npm run build",
+    "test:e2e": "start-server-and-test playground:run http://localhost:3000 cy:run",
+    "test:e2e-watch": "start-server-and-test playground:run http://localhost:3000 cy:open",
+    "prepublishOnly": "cp ../README.md ./"
+  },
+  "dependencies": {
+    "@storyblok/vue-2": "^1.0.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "babel-jest": "^27.5.1",
+    "cypress": "^9.6.1",
+    "eslint-plugin-cypress": "^2.12.1",
+    "jest": "^28.1.0",
+    "start-server-and-test": "^1.14.0",
+    "vite": "^2.9.8"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ]
+  },
+  "repository": "https://github.com/storyblok/storyblok-nuxt",
+  "contributors": [
+    {
+      "name": "Alexander Feiglstorfer <delooks@gmail.com>"
+    }
+  ]
+}
