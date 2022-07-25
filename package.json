@@ -20,7 +20,7 @@
     "eslint-plugin-vue": "^9.0.1",
     "husky": "^8.0.1",
     "lint-staged": "^12.4.1",
-    "prettier": "^2.6.2"
+    "prettier": "^2.7.1"
   },
   "lint-staged": {
     "!(plugin)*.{vue,js,css}": [
