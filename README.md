@@ -143,6 +143,23 @@ Which is the short-hand equivalent to using `useStoryblokApi` and `useStoryblokB
 </template>
 ```
 
+#### Rendering Rich Text
+
+You can easily render rich text by using the `renderRichText` function that comes with `@storyblok/vue` and a Vue computed property:
+
+```html
+<template>
+  <div v-html="articleContent"></div>
+</template>
+
+<script setup>
+  import { computed } from "@nuxtjs/composition-api";
+  import { renderRichText } from "@storyblok/nuxt-2";
+
+  const articleContent = computed(() => renderRichText(blok.articleContent));
+</script>
+```
+
 #### Options API
 
 You can still use the `useStoryblokApi` and `useStoryblokBridge` as follows:
