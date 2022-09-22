@@ -4,14 +4,13 @@ import { useStoryblokBridge, useStoryblokApi } from "@storyblok/nuxt-2";
 
 const story = ref(null);
 
-const { fetch } = useFetch(async () => {
+useFetch(async () => {
   const storyblokApi = useStoryblokApi();
   const { data } = await storyblokApi.get(`cdn/stories/vue/test`, {
     version: "draft",
   });
   story.value = data.story;
 });
-fetch();
 
 onMounted(async () => {
   if (story.value && story.value.id)

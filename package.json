@@ -51,8 +51,5 @@
   },
   "eslintIgnore": [
     "**/templates/plugin.js"
-  ],
-  "dependencies": {
-    "@nuxtjs/composition-api": "^0.32.0"
-  }
+  ]
 }
