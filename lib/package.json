@@ -7,7 +7,7 @@
       "import": "./dist/storyblok-nuxt.mjs",
       "require": "./dist/storyblok-nuxt.js"
     },
-    "./module": "./module/index.js"
+    "./module": "./module/index.mjs"
   },
   "main": "./dist/storyblok-nuxt.js",
   "module": "./dist/storyblok-nuxt.mjs",
@@ -26,16 +26,14 @@
     "prepublishOnly": "cp ../README.md ./"
   },
   "dependencies": {
-    "@storyblok/vue-2": "^1.2.0"
+    "@storyblok/vue-2": "^2.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.9",
-    "babel-jest": "^28.1.3",
+    "@nuxtjs/composition-api": "^0.33.1",
     "cypress": "^9.6.1",
     "eslint-plugin-cypress": "^2.12.1",
-    "jest": "^28.1.0",
     "start-server-and-test": "^1.14.0",
-    "vite": "^2.9.8"
+    "vite": "^3.1.3"
   },
   "release": {
     "branches": [

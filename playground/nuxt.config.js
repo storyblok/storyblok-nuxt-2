@@ -1,7 +1,7 @@
 export default {
-  target: "server",
+  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "playground",
+    title: "playground-2",
     htmlAttrs: {
       lang: "en",
     },
@@ -12,11 +12,10 @@ export default {
       { name: "format-detection", content: "telephone=no" },
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
-    script: [{ src: "https://cdn.tailwindcss.com" }],
   },
 
   buildModules: [
     ["@storyblok/nuxt-2/module", { accessToken: "OurklwV5XsDJTIE1NJaD2wtt" }],
-    "@nuxtjs/composition-api/module",
+    // "@nuxtjs/composition-api/module",
   ],
 };
