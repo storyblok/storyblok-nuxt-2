@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "@storyblok/nuxt-2": "^0.0.1",
-    "core-js": "^3.25.2",
+    "core-js": "^3.25.5",
     "nuxt": "^2.15.8"
   }
 }
