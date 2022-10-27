@@ -59,7 +59,7 @@ Initialize the module by adding it to buildModules section of `nuxt.config.js` a
 
 #### Options
 
-When you initialize the module, you can pass all [_@storyblok/vue_ options](https://github.com/storyblok/storyblok-vue#storyblok-api) plus a `useApiClient` options:
+When you initialize the module, you can pass all [_@storyblok/vue_ options](https://github.com/storyblok/storyblok-vue#storyblok-api) plus a `useApiClient` option. For spaces created in the United States, you have to set the `region` parameter accordingly `{ apiOptions: { region: 'us' } }`.
 
 ```js
 // Defaults
