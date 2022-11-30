@@ -59,7 +59,9 @@ Initialize the module by adding it to buildModules section of `nuxt.config.js` a
 
 #### Options
 
-When you initialize the module, you can pass all [_@storyblok/vue_ options](https://github.com/storyblok/storyblok-vue#storyblok-api) plus a `useApiClient` option. For spaces created in the United States, you have to set the `region` parameter accordingly `{ apiOptions: { region: 'us' } }`.
+When you initialize the module, you can pass all [_@storyblok/vue-2_ options](https://github.com/storyblok/storyblok-vue-2#storyblok-api) plus a `useApiClient` option.
+
+For spaces created in the United States, you have to set the `region` parameter accordingly `{ apiOptions: { region: 'us' } }`.
 
 ```js
 // Defaults
@@ -67,7 +69,10 @@ When you initialize the module, you can pass all [_@storyblok/vue_ options](http
   {
     accessToken: "<your-access-token>",
     bridge: true,
-    apiOptions: {}, // storyblok-js-client options
+    apiOptions: { // storyblok-js-client options
+      // cache: { type: "memory" },
+      // region: 'us'
+    },
     useApiClient: true
   }
 }]
@@ -97,9 +102,9 @@ To link your Vue components to their equivalent you created in Storyblok:
 
 ### 2. Getting Storyblok Stories and listen to Visual Editor events
 
-#### Composition API
+#### Composition API with `@nuxtjs/composition-api`
 
-> To use Nuxt 2 with Composition API, make sure you installed the [@nuxtjs/composition-api](https://composition-api.nuxtjs.org/) plugin.
+> Use Nuxt 2 with the Composition API plugin installed: [@nuxtjs/composition-api](https://composition-api.nuxtjs.org/).
 
 The simplest way is by using the `useStoryblok` one-liner composable, which uses the [useFetch from @nuxtjs/composition-api](https://composition-api.nuxtjs.org/lifecycle/useFetch) under the hood:
 
@@ -123,14 +128,13 @@ Which is the short-hand equivalent to using `useStoryblokApi` and `useStoryblokB
 
   const story = ref(null);
 
-  const { fetch } = useFetch(async () => {
+  useFetch(async () => {
     const storyblokApi = useStoryblokApi();
     const { data } = await storyblokApi.get(`cdn/stories/vue/test`, {
       version: "draft",
     });
     story.value = data.story;
   });
-  fetch();
 
   onMounted(async () => {
     if (story.value && story.value.id)
@@ -142,6 +146,54 @@ Which is the short-hand equivalent to using `useStoryblokApi` and `useStoryblokB
   <StoryblokComponent v-if="story" :blok="story.content" />
 </template>
 ```
+
+#### Composition API without `@nuxtjs/composition-api`
+
+> You don't need to install [@nuxtjs/composition-api](https://composition-api.nuxtjs.org/) as it's not a dependency anymore.
+
+The simplest way is by using the `useStoryblok` one-liner composable, which uses the [useFetch from @nuxtjs/composition-api](https://composition-api.nuxtjs.org/lifecycle/useFetch) under the hood:
+
+```html
+<script setup>
+  import { useStoryblok } from "@storyblok/nuxt-2";
+  const { story, fetchState } = useStoryblok("vue", { version: "draft" });
+</script>
+
+<template>
+  <StoryblokComponent v-if="story" :blok="story.content" />
+</template>
+```
+
+#### Options API
+
+You can still use the `useStoryblokApi` and `useStoryblokBridge` as follows:
+
+```html
+<script>
+  import { useStoryblokBridge, useStoryblokApi } from "@storyblok/nuxt-2";
+
+  export default {
+    asyncData: async ({ app }) => {
+      const storyblokApi = useStoryblokApi();
+      const { data } = await storyblokApi.get("cdn/stories/vue", {
+        version: "draft",
+      });
+      // OR: const { data } = await app.$storyapi.get("cdn/stories/vue", { version: "draft" });
+
+      return { story: data.story };
+    },
+    mounted() {
+      useStoryblokBridge(this.story.id, (newStory) => (this.story = newStory));
+    },
+  };
+</script>
+
+<template>
+  <StoryblokComponent v-if="story" :blok="story.content" />
+</template>
+```
+
+> _As you see in the comment, you can also use `app.$storyapi` if that's more comfortable for you. It's injected into Nuxt context and available in the components instance via `this.$storyapi` as well._
 
 #### Rendering Rich Text
 
@@ -188,37 +240,6 @@ You can also set a **custom Schema and component resolver** by passing the optio
 </script>
 
 ```
-
-#### Options API
-
-You can still use the `useStoryblokApi` and `useStoryblokBridge` as follows:
-
-```html
-<script>
-  import { useStoryblokBridge, useStoryblokApi } from "@storyblok/nuxt-2";
-
-  export default {
-    asyncData: async ({ app }) => {
-      const storyblokApi = useStoryblokApi();
-      const { data } = await storyblokApi.get("cdn/stories/vue", {
-        version: "draft",
-      });
-      // OR: const { data } = await app.$storyapi.get("cdn/stories/vue", { version: "draft" });
-
-      return { story: data.story };
-    },
-    mounted() {
-      useStoryblokBridge(this.story.id, (newStory) => (this.story = newStory));
-    },
-  };
-</script>
-
-<template>
-  <StoryblokComponent v-if="story" :blok="story.content" />
-</template>
-```
-
-> _As you see in the comment, you can also use `app.$storyapi` if that's more comfortable for you. It's injected into Nuxt context and available in the components instance via `this.$storyapi` as well._
 
 ### API
 
