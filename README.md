@@ -102,6 +102,23 @@ To link your Vue components to their equivalent you created in Storyblok:
 
 ### 2. Getting Storyblok Stories and listen to Visual Editor events
 
+#### Composition API without `@nuxtjs/composition-api`
+
+> You don't need to install [@nuxtjs/composition-api](https://composition-api.nuxtjs.org/) if you're in the latest versions of Nuxt 2, as it comes with Vue 2.7 with Composition API support out of the box.
+
+The simplest way is by using the `useStoryblok` one-liner composable, which uses the [useFetch from @nuxtjs/composition-api](https://composition-api.nuxtjs.org/lifecycle/useFetch) under the hood:
+
+```html
+<script setup>
+  import { useStoryblok } from "@storyblok/nuxt-2";
+  const { story, fetchState } = useStoryblok("vue", { version: "draft" });
+</script>
+
+<template>
+  <StoryblokComponent v-if="story" :blok="story.content" />
+</template>
+```
+
 #### Composition API with `@nuxtjs/composition-api`
 
 > Use Nuxt 2 with the Composition API plugin installed: [@nuxtjs/composition-api](https://composition-api.nuxtjs.org/).
@@ -147,22 +164,6 @@ Which is the short-hand equivalent to using `useStoryblokApi` and `useStoryblokB
 </template>
 ```
 
-#### Composition API without `@nuxtjs/composition-api`
-
-> You don't need to install [@nuxtjs/composition-api](https://composition-api.nuxtjs.org/) as it's not a dependency anymore.
-
-The simplest way is by using the `useStoryblok` one-liner composable, which uses the [useFetch from @nuxtjs/composition-api](https://composition-api.nuxtjs.org/lifecycle/useFetch) under the hood:
-
-```html
-<script setup>
-  import { useStoryblok } from "@storyblok/nuxt-2";
-  const { story, fetchState } = useStoryblok("vue", { version: "draft" });
-</script>
-
-<template>
-  <StoryblokComponent v-if="story" :blok="story.content" />
-</template>
-```
 
 #### Options API
 
