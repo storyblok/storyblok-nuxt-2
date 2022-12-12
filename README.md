@@ -65,17 +65,19 @@ For spaces created in the United States, you have to set the `region` parameter 
 
 ```js
 // Defaults
-["@storyblok/nuxt-2/module", {
+[
+  "@storyblok/nuxt-2/module",
   {
     accessToken: "<your-access-token>",
     bridge: true,
-    apiOptions: { // storyblok-js-client options
+    apiOptions: {
+      // storyblok-js-client options
       // cache: { type: "memory" },
       // region: 'us'
     },
-    useApiClient: true
-  }
-}]
+    useApiClient: true,
+  },
+];
 ```
 
 ## Getting started
@@ -164,7 +166,6 @@ Which is the short-hand equivalent to using `useStoryblokApi` and `useStoryblokB
 </template>
 ```
 
-
 #### Options API
 
 You can still use the `useStoryblokApi` and `useStoryblokBridge` as follows:
@@ -217,29 +218,30 @@ You can also set a **custom Schema and component resolver** by passing the optio
 
 ```html
 <script setup>
-  import { computed } from 'vue'
-  import { renderRichText, RichTextSchema } from '@storyblok/nuxt-2'
+  import { computed } from "vue";
+  import { renderRichText, RichTextSchema } from "@storyblok/nuxt-2";
   import cloneDeep from "clone-deep";
 
-  const props = defineProps({ blok: Object })
+  const props = defineProps({ blok: Object });
 
   const mySchema = cloneDeep(RichTextSchema); // you can make a copy of the default RichTextSchema
   // ... and edit the nodes and marks, or add your own.
   // Check the base RichTextSchema source here https://github.com/storyblok/storyblok-js-client/blob/v4/source/schema.js
 
-  const articleContent = computed(() => renderRichText(props.blok.articleContent, {
-    schema: mySchema,
-    resolver: (component, blok) => {
-      switch (component) {
-        case "my-custom-component":
-          return `<div class="my-component-class">${blok.text}</div>`;
-        default:
-          return "Resolver not defined";
-      }
-    }
-  }))
+  const articleContent = computed(() =>
+    renderRichText(props.blok.articleContent, {
+      schema: mySchema,
+      resolver: (component, blok) => {
+        switch (component) {
+          case "my-custom-component":
+            return `<div class="my-component-class">${blok.text}</div>`;
+          default:
+            return "Resolver not defined";
+        }
+      },
+    })
+  );
 </script>
-
 ```
 
 ### API
