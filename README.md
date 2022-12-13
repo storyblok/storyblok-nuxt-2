@@ -108,7 +108,7 @@ To link your Vue components to their equivalent you created in Storyblok:
 
 > You don't need to install [@nuxtjs/composition-api](https://composition-api.nuxtjs.org/) if you're in the latest versions of Nuxt 2, as it comes with Vue 2.7 with Composition API support out of the box.
 
-The simplest way is by using the `useStoryblok` one-liner composable, which uses the [useFetch from @nuxtjs/composition-api](https://composition-api.nuxtjs.org/lifecycle/useFetch) under the hood:
+The simplest way is by using the `useStoryblok` one-liner composable:
 
 ```html
 <script setup>
@@ -147,13 +147,14 @@ Which is the short-hand equivalent to using `useStoryblokApi` and `useStoryblokB
 
   const story = ref(null);
 
-  useFetch(async () => {
+  const { fetch } = useFetch(async () => {
     const storyblokApi = useStoryblokApi();
     const { data } = await storyblokApi.get(`cdn/stories/vue/test`, {
       version: "draft",
     });
     story.value = data.story;
   });
+  fetch();
 
   onMounted(async () => {
     if (story.value && story.value.id)
