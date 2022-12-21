@@ -59,18 +59,25 @@ Initialize the module by adding it to buildModules section of `nuxt.config.js` a
 
 #### Options
 
-When you initialize the module, you can pass all [_@storyblok/vue_ options](https://github.com/storyblok/storyblok-vue#storyblok-api) plus a `useApiClient` option. For spaces created in the United States, you have to set the `region` parameter accordingly `{ apiOptions: { region: 'us' } }`.
+When you initialize the module, you can pass all [_@storyblok/vue-2_ options](https://github.com/storyblok/storyblok-vue-2#storyblok-api) plus a `useApiClient` option.
+
+For spaces created in the United States, you have to set the `region` parameter accordingly `{ apiOptions: { region: 'us' } }`.
 
 ```js
 // Defaults
-["@storyblok/nuxt-2/module", {
+[
+  "@storyblok/nuxt-2/module",
   {
     accessToken: "<your-access-token>",
     bridge: true,
-    apiOptions: {}, // storyblok-js-client options
-    useApiClient: true
-  }
-}]
+    apiOptions: {
+      // storyblok-js-client options
+      // cache: { type: "memory" },
+      // region: 'us'
+    },
+    useApiClient: true,
+  },
+];
 ```
 
 ## Getting started
@@ -97,9 +104,26 @@ To link your Vue components to their equivalent you created in Storyblok:
 
 ### 2. Getting Storyblok Stories and listen to Visual Editor events
 
-#### Composition API
+#### Composition API without `@nuxtjs/composition-api`
 
-> To use Nuxt 2 with Composition API, make sure you installed the [@nuxtjs/composition-api](https://composition-api.nuxtjs.org/) plugin.
+> You don't need to install [@nuxtjs/composition-api](https://composition-api.nuxtjs.org/) if you're in the latest versions of Nuxt 2, as it comes with Vue 2.7 with Composition API support out of the box.
+
+The simplest way is by using the `useStoryblok` one-liner composable:
+
+```html
+<script setup>
+  import { useStoryblok } from "@storyblok/nuxt-2";
+  const { story, fetchState } = useStoryblok("vue", { version: "draft" });
+</script>
+
+<template>
+  <StoryblokComponent v-if="story" :blok="story.content" />
+</template>
+```
+
+#### Composition API with `@nuxtjs/composition-api`
+
+> Use Nuxt 2 with the Composition API plugin installed: [@nuxtjs/composition-api](https://composition-api.nuxtjs.org/).
 
 The simplest way is by using the `useStoryblok` one-liner composable, which uses the [useFetch from @nuxtjs/composition-api](https://composition-api.nuxtjs.org/lifecycle/useFetch) under the hood:
 
@@ -143,52 +167,6 @@ Which is the short-hand equivalent to using `useStoryblokApi` and `useStoryblokB
 </template>
 ```
 
-#### Rendering Rich Text
-
-You can easily render rich text by using the `renderRichText` function that comes with `@storyblok/nuxt-2` and a Vue computed property:
-
-```html
-<template>
-  <div v-html="articleContent"></div>
-</template>
-
-<script setup>
-  import { computed } from "@nuxtjs/composition-api";
-  import { renderRichText } from "@storyblok/nuxt-2";
-
-  const articleContent = computed(() => renderRichText(blok.articleContent));
-</script>
-```
-
-You can also set a **custom Schema and component resolver** by passing the options as the second parameter of the `renderRichText` function:
-
-```html
-<script setup>
-  import { computed } from 'vue'
-  import { renderRichText, RichTextSchema } from '@storyblok/nuxt-2'
-  import cloneDeep from "clone-deep";
-
-  const props = defineProps({ blok: Object })
-
-  const mySchema = cloneDeep(RichTextSchema); // you can make a copy of the default RichTextSchema
-  // ... and edit the nodes and marks, or add your own.
-  // Check the base RichTextSchema source here https://github.com/storyblok/storyblok-js-client/blob/v4/source/schema.js
-
-  const articleContent = computed(() => renderRichText(props.blok.articleContent, {
-    schema: mySchema,
-    resolver: (component, blok) => {
-      switch (component) {
-        case "my-custom-component":
-          return `<div class="my-component-class">${blok.text}</div>`;
-        default:
-          return "Resolver not defined";
-      }
-    }
-  }))
-</script>
-
-```
-
 #### Options API
 
 You can still use the `useStoryblokApi` and `useStoryblokBridge` as follows:
@@ -219,6 +197,53 @@ You can still use the `useStoryblokApi` and `useStoryblokBridge` as follows:
 ```
 
 > _As you see in the comment, you can also use `app.$storyapi` if that's more comfortable for you. It's injected into Nuxt context and available in the components instance via `this.$storyapi` as well._
+
+#### Rendering Rich Text
+
+You can easily render rich text by using the `renderRichText` function that comes with `@storyblok/nuxt-2` and a Vue computed property:
+
+```html
+<template>
+  <div v-html="articleContent"></div>
+</template>
+
+<script setup>
+  import { computed } from "@nuxtjs/composition-api";
+  import { renderRichText } from "@storyblok/nuxt-2";
+
+  const articleContent = computed(() => renderRichText(blok.articleContent));
+</script>
+```
+
+You can also set a **custom Schema and component resolver** by passing the options as the second parameter of the `renderRichText` function:
+
+```html
+<script setup>
+  import { computed } from "vue";
+  import { renderRichText, RichTextSchema } from "@storyblok/nuxt-2";
+  import cloneDeep from "clone-deep";
+
+  const props = defineProps({ blok: Object });
+
+  const mySchema = cloneDeep(RichTextSchema); // you can make a copy of the default RichTextSchema
+  // ... and edit the nodes and marks, or add your own.
+  // Check the base RichTextSchema source here https://github.com/storyblok/storyblok-js-client/blob/v4/source/schema.js
+
+  const articleContent = computed(() =>
+    renderRichText(props.blok.articleContent, {
+      schema: mySchema,
+      resolver: (component, blok) => {
+        switch (component) {
+          case "my-custom-component":
+            return `<div class="my-component-class">${blok.text}</div>`;
+          default:
+            return "Resolver not defined";
+        }
+      },
+    })
+  );
+</script>
+```
 
 ### API
 
