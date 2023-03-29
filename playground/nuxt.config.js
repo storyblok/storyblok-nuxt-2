@@ -13,9 +13,8 @@ export default {
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
   },
-  plugins: ["~/plugins/polyfill.js"],
   buildModules: [
-    ["@storyblok/nuxt-2/module", { accessToken: "tqITNsRwbyxrQQ1t4GLcJAtt" }],
+    ["@storyblok/nuxt-2/module", { accessToken: "OurklwV5XsDJTIE1NJaD2wtt" }],
     // "@nuxtjs/composition-api/module",
   ],
 };
