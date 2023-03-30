@@ -31,6 +31,13 @@
 
 If you are in a hurry, check out our official **[live demo](https://stackblitz.com/edit/nuxt-2-sdk-demo?file=pages%2Findex.vue)** on Stackblitz.
 
+#### Compatibility
+
+| Version to install                                                                                   | Support                                              |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| Latest (from v2) `@storyblok/nuxt-2`                                                                 | Browsers and Node versions with no Fetch API support |
+| [Version 1](https://github.com/storyblok/storyblok-nuxt-2/releases/tag/v1.2.3) `@storyblok/nuxt-2@1` | Internet Explorer support                            |
+
 ## 🚀 Usage
 
 _Note: This module is for Nuxt 2. [Check out `@storyblok/nuxt` for Nuxt 3](https://github.com/storyblok/storyblok-nuxt)_.
