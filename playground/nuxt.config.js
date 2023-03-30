@@ -1,3 +1,8 @@
+/*
+** Uncomment this to run the HTTPS server
+import path from 'path'
+import fs from 'fs'
+*/
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -13,9 +18,18 @@ export default {
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
   },
-
   buildModules: [
     ["@storyblok/nuxt-2/module", { accessToken: "OurklwV5XsDJTIE1NJaD2wtt" }],
     // "@nuxtjs/composition-api/module",
   ],
+  /*
+  ** Uncomment this to run the HTTPS server
+  ** -- [Previously] Create mkcert credentials in the root of the project: `mkcert localhost`
+  server: {
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, '..', 'localhost-key.pem')),
+      cert: fs.readFileSync(path.resolve(__dirname, '..', 'localhost.pem'))
+    }
+  }
+  */
 };

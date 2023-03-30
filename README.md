@@ -31,6 +31,13 @@
 
 If you are in a hurry, check out our official **[live demo](https://stackblitz.com/edit/nuxt-2-sdk-demo?file=pages%2Findex.vue)** on Stackblitz.
 
+#### Compatibility
+
+| Version to install                                                                                   | Support                                              |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| Latest (from v2) `@storyblok/nuxt-2`                                                                 | Browsers and Node versions with no Fetch API support |
+| [Version 1](https://github.com/storyblok/storyblok-nuxt-2/releases/tag/v1.2.3) `@storyblok/nuxt-2@1` | Internet Explorer support                            |
+
 ## 🚀 Usage
 
 _Note: This module is for Nuxt 2. [Check out `@storyblok/nuxt` for Nuxt 3](https://github.com/storyblok/storyblok-nuxt)_.
@@ -56,6 +63,8 @@ Initialize the module by adding it to buildModules section of `nuxt.config.js` a
   ];
 }
 ```
+
+> ⚠️ This SDK uses the Fetch API under the hood. As this package only runs in engines using node <17.0.0 and it doesn't support it, we configured for you a ponyfill [fetch-ponyfill](https://github.com/qubyte/fetch-ponyfill). More info on [storyblok-js-client docs](https://github.com/storyblok/storyblok-js-client#fetch-use-polyfill-if-needed---version-5).
 
 #### Options
 
