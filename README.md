@@ -57,7 +57,7 @@ Initialize the module by adding it to buildModules section of `nuxt.config.js` a
 }
 ```
 
-> ⚠️ This SDK uses the Fetch API under the hood. If your environment doesn't support it, you need to install a polyfill like [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch). More info on [storyblok-js-client docs](https://github.com/storyblok/storyblok-js-client#fetch-use-polyfill-if-needed---version-5).
+> ⚠️ This SDK uses the Fetch API under the hood. As this package only runs in engines using node <17.0.0 and it doesn't support it, we configured for you a ponyfill [fetch-ponyfill](https://github.com/qubyte/fetch-ponyfill). More info on [storyblok-js-client docs](https://github.com/storyblok/storyblok-js-client#fetch-use-polyfill-if-needed---version-5).
 
 #### Options
 
