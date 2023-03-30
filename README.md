@@ -70,8 +70,6 @@ Initialize the module by adding it to buildModules section of `nuxt.config.js` a
 
 When you initialize the module, you can pass all [_@storyblok/vue-2_ options](https://github.com/storyblok/storyblok-vue-2#storyblok-api) plus a `useApiClient` option.
 
-For spaces created in the United States, you have to set the `region` parameter accordingly `{ apiOptions: { region: 'us' } }`.
-
 ```js
 // Defaults
 [
@@ -88,6 +86,32 @@ For spaces created in the United States, you have to set the `region` parameter 
   },
 ];
 ```
+
+#### Region parameter
+
+Possible values:
+
+- `eu` (default): For spaces created in the EU
+- `us`: For spaces created in the US
+- `cn`: For spaces created in China
+
+Full example for a space created in the US:
+
+```js
+[
+  "@storyblok/nuxt-2/module",
+  {
+    accessToken: "<your-access-token>",
+    bridge: true,
+    apiOptions: {
+      region: "us",
+    },
+    useApiClient: true,
+  },
+];
+```
+
+> Note: For spaces created in the United States or China, the `region` parameter **must** be specified.
 
 ## Getting started
 
@@ -271,6 +295,10 @@ Use this one-line function to cover the most common use case: updating the story
 #### $storyapi
 
 Equivalent to the client that `useStoryblokApi` returns, but accessible in the Nuxt context and components instance.
+
+## The Storyblok JavaScript SDK Ecosystem
+
+![A visual representation of the Storyblok JavaScript SDK Ecosystem](https://a.storyblok.com/f/88751/2400x1350/be4a4a4180/sdk-ecosystem.png/m/1200x0)
 
 ## 🔗 Related Links
 
