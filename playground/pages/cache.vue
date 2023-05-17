@@ -1,0 +1,27 @@
+<template>
+  <StoryblokComponent v-if="story" :blok="story.content" />
+</template>
+
+<script>
+import { useStoryblokBridge, useStoryblokApi } from "@storyblok/nuxt-2";
+
+export default {
+  //eslint-disable-next-line
+  asyncData: async ({ app }) => {
+    const storyblokApi = useStoryblokApi();
+
+    // Custom Flush method
+    storyblokApi.cacheProvider().flush();
+
+    const { data } = await storyblokApi.get("cdn/stories/vue", {
+      version: "draft",
+    });
+    // OR: const { data } = await app.$storyapi.get("cdn/stories/vue", { version: "draft" });
+
+    return { story: data.story };
+  },
+  mounted() {
+    useStoryblokBridge(this.story.id, (newStory) => (this.story = newStory));
+  },
+};
+</script>
