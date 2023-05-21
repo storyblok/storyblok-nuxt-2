@@ -68,7 +68,7 @@ Initialize the module by adding it to buildModules section of `nuxt.config.js` a
 
 #### Options
 
-When you initialize the module, you can pass all [_@storyblok/vue-2_ options](https://github.com/storyblok/storyblok-vue-2#storyblok-api) plus a `useApiClient` and `usePlugin` option.
+When you initialize the module, you can pass all [_@storyblok/vue-2_ options](https://github.com/storyblok/storyblok-vue-2#storyblok-api) plus a `useApiClient` and `enableSudoMode` option.
 
 ```js
 // Defaults
@@ -89,7 +89,7 @@ When you initialize the module, you can pass all [_@storyblok/vue-2_ options](ht
 
 **Define your own plugin**
 
-While the recommended approach covers most cases, there are specific instances where you may need to utilize the `usePlugin` option and disable it, allowing you to incorporate your own plugin.
+While the recommended approach covers most cases, there are specific instances where you may need to utilize the `enableSudoMode` option and disable it, allowing you to incorporate your own plugin.
 
 ```js
 // nuxt.config.js
@@ -101,7 +101,7 @@ buildModules: [
     "@storyblok/nuxt-2/module",
     {
       accessToken: "<your-access-token>",
-      usePlugin: false
+      enableSudoMode: true
     },
   ]
 ]

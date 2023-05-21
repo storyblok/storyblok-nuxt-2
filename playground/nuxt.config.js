@@ -26,7 +26,7 @@ export default {
       "@storyblok/nuxt-2/module",
       {
         accessToken: "OurklwV5XsDJTIE1NJaD2wtt",
-        // usePlugin: false /* disable the plugin to define your own */
+        // enableSudoMode: true /* disable the plugin to define your own */
       },
     ],
     // "@nuxtjs/composition-api/module",
