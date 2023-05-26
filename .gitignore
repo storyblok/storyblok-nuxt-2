@@ -9,3 +9,5 @@ coverage
 dist
 lib/cypress/videos
 lib/cypress/screenshots
+localhost.pem
+localhost-key.pem

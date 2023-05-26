@@ -68,7 +68,7 @@ Initialize the module by adding it to buildModules section of `nuxt.config.js` a
 
 #### Options
 
-When you initialize the module, you can pass all [_@storyblok/vue-2_ options](https://github.com/storyblok/storyblok-vue-2#storyblok-api) plus a `useApiClient` option.
+When you initialize the module, you can pass all [_@storyblok/vue-2_ options](https://github.com/storyblok/storyblok-vue-2#storyblok-api) plus a `useApiClient` and `enableSudoMode` option.
 
 ```js
 // Defaults
@@ -85,6 +85,75 @@ When you initialize the module, you can pass all [_@storyblok/vue-2_ options](ht
     useApiClient: true,
   },
 ];
+```
+
+**Define your own plugin**
+
+While the recommended approach covers most cases, there are specific instances where you may need to utilize the `enableSudoMode` option and disable it, allowing you to incorporate your own plugin.
+
+```js
+// nuxt.config.js
+plugins: [
+  '~/plugins/storyblok.js',
+],
+buildModules: [
+  [
+    "@storyblok/nuxt-2/module",
+    {
+      accessToken: "<your-access-token>",
+      enableSudoMode: true
+    },
+  ]
+]
+```
+
+To include additional functionalities in the SDK's `apiOptions`, such as custom cache methods, you can implement the following solution:
+
+```js
+// plugins/storyblok.js
+import Vue from "vue";
+import {
+  StoryblokVue,
+  useStoryblokApi,
+  useStoryblokBridge,
+  apiPlugin,
+} from "@storyblok/nuxt-2";
+
+import fetchPonyfill from "fetch-ponyfill";
+import { AbortController } from "node-abort-controller";
+
+const { fetch, Request, Response, Headers } = fetchPonyfill();
+
+if (global && !global.fetch) {
+  global.fetch = fetch;
+  global.Request = Request;
+  global.Response = Response;
+  global.Headers = Headers;
+  global.AbortController = AbortController;
+}
+
+export default (ctx, inject) => {
+  Vue.use(StoryblokVue, {
+    accessToken: "OurklwV5XsDJTIE1NJaD2wtt",
+    bridge: true,
+    apiOptions: {
+      cache: {
+        // Add your own methods
+        clear: "manual",
+        type: "custom",
+        custom: {
+          flush() {
+            return "all right";
+          },
+        },
+      },
+    },
+    use: [apiPlugin],
+  });
+  const api = useStoryblokApi();
+  inject("storyapi", api);
+  inject("storybridge", useStoryblokBridge);
+};
 ```
 
 #### Region parameter

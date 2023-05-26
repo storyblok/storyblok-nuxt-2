@@ -18,8 +18,17 @@ export default {
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
   },
+  plugins: [
+    // '~/plugins/storyblok.js', /* uncomment to define your own initialization */
+  ],
   buildModules: [
-    ["@storyblok/nuxt-2/module", { accessToken: "OurklwV5XsDJTIE1NJaD2wtt" }],
+    [
+      "@storyblok/nuxt-2/module",
+      {
+        accessToken: "OurklwV5XsDJTIE1NJaD2wtt",
+        // enableSudoMode: true /* disable the plugin to define your own */
+      },
+    ],
     // "@nuxtjs/composition-api/module",
   ],
   /*
