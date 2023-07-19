@@ -190,7 +190,7 @@ To link your Vue components to their equivalent you created in Storyblok:
 
 - First, you need to load them globally. If you use Nuxt 2.13+, you can just place them on the `~/components/storyblok` directory, otherwise you can load them globally (for example, by [using a Nuxt plugin](https://stackoverflow.com/questions/43040692/global-components-in-vue-nuxt)).
 
-- For each components, use the `v-editable` directive on its root element, passing the `blok` property that they receive:
+- For each component, use the `v-editable` directive on its root element, passing the `blok` property that they receive:
 
 ```html
 <div v-editable="blok" / >
@@ -210,12 +210,16 @@ To link your Vue components to their equivalent you created in Storyblok:
 
 > You don't need to install [@nuxtjs/composition-api](https://composition-api.nuxtjs.org/) if you're in the latest versions of Nuxt 2, as it comes with Vue 2.7 with Composition API support out of the box.
 
-The simplest way is by using the `useStoryblok` one-liner composable:
+The simplest way is by using the `useStoryblok` one-liner composable. Where you need to pass as first parameter the `slug`, while the second and third parameters, `apiOptions` and `bridgeOptions` respectively, are optional:
 
 ```html
 <script setup>
   import { useStoryblok } from "@storyblok/nuxt-2";
-  const { story, fetchState } = useStoryblok("vue", { version: "draft" });
+  const { story, fetchState } = useStoryblok(
+    "vue",
+    { version: "draft", resolve_relations: "Article.author" }, // API Options
+    { resolveRelations: ["Article.author"], resolveLinks: "url" } // Bridge Options
+  );
 </script>
 
 <template>
@@ -223,16 +227,22 @@ The simplest way is by using the `useStoryblok` one-liner composable:
 </template>
 ```
 
+Check the available [apiOptions](https://www.storyblok.com/docs/api/content-delivery/v2#core-resources/stories/retrieve-one-story?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-nuxt) in our API docs and [bridgeOptions](https://www.storyblok.com/docs/Guides/storyblok-latest-js?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-nuxt) passed to the Storyblok Bridge.
+
 #### Composition API with `@nuxtjs/composition-api`
 
 > Use Nuxt 2 with the Composition API plugin installed: [@nuxtjs/composition-api](https://composition-api.nuxtjs.org/).
 
-The simplest way is by using the `useStoryblok` one-liner composable, which uses the [useFetch from @nuxtjs/composition-api](https://composition-api.nuxtjs.org/lifecycle/useFetch) under the hood:
+The simplest way is by using the `useStoryblok` one-liner composable, which uses the [useFetch from @nuxtjs/composition-api](https://composition-api.nuxtjs.org/lifecycle/useFetch) under the hood, and same options as before:
 
 ```html
 <script setup>
   import { useStoryblok } from "@storyblok/nuxt-2";
-  const { story, fetchState } = useStoryblok("vue", { version: "draft" });
+  const { story, fetchState } = useStoryblok(
+    "vue",
+    { version: "draft", resolve_relations: "Article.author" }, // API Options
+    { resolveRelations: ["Article.author"], resolveLinks: "url" } // Bridge Options
+  );
 </script>
 
 <template>
@@ -251,16 +261,21 @@ Which is the short-hand equivalent to using `useStoryblokApi` and `useStoryblokB
 
   const { fetch } = useFetch(async () => {
     const storyblokApi = useStoryblokApi();
-    const { data } = await storyblokApi.get(`cdn/stories/vue/test`, {
-      version: "draft",
-    });
+    const { data } = await storyblokApi.get(
+      `cdn/stories/vue/test`,
+      { version: "draft", resolve_relations: "Article.author" } // API Options
+    );
     story.value = data.story;
   });
   fetch();
 
   onMounted(async () => {
     if (story.value && story.value.id)
-      useStoryblokBridge(story.value.id, (evStory) => (story.value = evStory));
+      useStoryblokBridge(
+        story.value.id,
+        (evStory) => (story.value = evStory),
+        { resolveRelations: ["Article.author"], resolveLinks: "url" } // Bridge Options
+      );
   });
 </script>
 
@@ -351,7 +366,7 @@ You can also set a **custom Schema and component resolver** by passing the optio
 
 #### useStoryblok(slug, apiOptions, bridgeOptions)
 
-Check the available [apiOptions](https://github.com/storyblok/storyblok-js-client#class-storyblok) (passed to `storyblok-js-client`) and [bridgeOptions](https://www.storyblok.com/docs/Guides/storyblok-latest-js?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-nuxt-2) (passed to the Storyblok Bridge).
+Check the available [apiOptions](https://www.storyblok.com/docs/api/content-delivery/v2#core-resources/stories/retrieve-one-story?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-nuxt-2) in our API story request docs and [bridgeOptions](https://www.storyblok.com/docs/Guides/storyblok-latest-js?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-nuxt-2) (passed to the Storyblok Bridge).
 
 #### useStoryblokApi()
 
