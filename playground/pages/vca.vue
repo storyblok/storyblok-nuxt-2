@@ -1,6 +1,9 @@
 <script setup>
 import { useStoryblok } from "@storyblok/nuxt-2";
-const { story, fetchState } = useStoryblok("vue/test", { version: "draft" });
+const { story, fetchState } = useStoryblok("vue/test", {
+  version: "draft",
+  resolve_relations: "page.resolveRels",
+});
 </script>
 
 <template>
