@@ -39,7 +39,11 @@
   },
   "release": {
     "branches": [
-      "main"
+      "main",
+      {
+        "name": "next",
+        "prerelease": true
+      }
     ]
   },
   "repository": "https://github.com/storyblok/storyblok-nuxt-2",
