@@ -1,5 +1,8 @@
 <template>
-  <StoryblokComponent v-if="story" :blok="story.content" />
+  <div>
+    <p>{{ story }}</p>
+    <StoryblokComponent v-if="story" :blok="story.content" />
+  </div>
 </template>
 
 <script>
@@ -11,6 +14,7 @@ export default {
     const storyblokApi = useStoryblokApi();
     const { data } = await storyblokApi.get("cdn/stories/vue/test", {
       version: "draft",
+      resolve_relations: "page.resolveRels",
     });
     // OR: const { data } = await app.$storyapi.get("cdn/stories/vue", { version: "draft" });
 
