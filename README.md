@@ -64,6 +64,18 @@ Initialize the module by adding it to buildModules section of `nuxt.config.js` a
 }
 ```
 
+The accessToken can also be set in the [publicRuntimeConfig](https://v2.nuxt.com/docs/directory-structure/nuxt-config#runtimeconfig). You can then override it at runtime with an environment variable. The value set in the publicRuntimeConfig will take priority if both are set.
+
+```js
+{
+  publicRuntimeConfig: {
+    storyblok: {
+      accessToken: process.env.STORYBLOK_ACCESS_TOKEN;
+    }
+  }
+}
+```
+
 > ⚠️ This SDK uses the Fetch API under the hood. As this package only runs in engines using node <17.0.0 and it doesn't support it, we configured for you a ponyfill [fetch-ponyfill](https://github.com/qubyte/fetch-ponyfill). More info on [storyblok-js-client docs](https://github.com/storyblok/storyblok-js-client#fetch-use-polyfill-if-needed---version-5).
 
 #### Options
@@ -218,7 +230,7 @@ The simplest way is by using the `useStoryblok` one-liner composable. Where you 
   const { story, fetchState } = useStoryblok(
     "vue",
     { version: "draft", resolve_relations: "Article.author" }, // API Options
-    { resolveRelations: ["Article.author"], resolveLinks: "url" } // Bridge Options
+    { resolveRelations: ["Article.author"], resolveLinks: "url" }, // Bridge Options
   );
 </script>
 
@@ -241,7 +253,7 @@ The simplest way is by using the `useStoryblok` one-liner composable, which uses
   const { story, fetchState } = useStoryblok(
     "vue",
     { version: "draft", resolve_relations: "Article.author" }, // API Options
-    { resolveRelations: ["Article.author"], resolveLinks: "url" } // Bridge Options
+    { resolveRelations: ["Article.author"], resolveLinks: "url" }, // Bridge Options
   );
 </script>
 
@@ -263,7 +275,7 @@ Which is the short-hand equivalent to using `useStoryblokApi` and `useStoryblokB
     const storyblokApi = useStoryblokApi();
     const { data } = await storyblokApi.get(
       `cdn/stories/vue/test`,
-      { version: "draft", resolve_relations: "Article.author" } // API Options
+      { version: "draft", resolve_relations: "Article.author" }, // API Options
     );
     story.value = data.story;
   });
@@ -274,7 +286,7 @@ Which is the short-hand equivalent to using `useStoryblokApi` and `useStoryblokB
       useStoryblokBridge(
         story.value.id,
         (evStory) => (story.value = evStory),
-        { resolveRelations: ["Article.author"], resolveLinks: "url" } // Bridge Options
+        { resolveRelations: ["Article.author"], resolveLinks: "url" }, // Bridge Options
       );
   });
 </script>
@@ -357,7 +369,7 @@ You can also set a **custom Schema and component resolver** by passing the optio
             return "Resolver not defined";
         }
       },
-    })
+    }),
   );
 </script>
 ```
