@@ -26,7 +26,7 @@
     "prepublishOnly": "cp ../README.md ./"
   },
   "dependencies": {
-    "@storyblok/vue-2": "^4.0.2",
+    "@storyblok/vue-2": "^4.0.3",
     "fetch-ponyfill": "^7.1.0",
     "node-abort-controller": "^3.1.1"
   },
