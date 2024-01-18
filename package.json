@@ -21,7 +21,7 @@
     "husky": "^8.0.3",
     "lint-staged": "^15.2.0",
     "nuxt": "^2.17.3",
-    "prettier": "^3.2.2"
+    "prettier": "^3.2.4"
   },
   "lint-staged": {
     "!(plugin)*.{vue,js,css}": [
