@@ -19,7 +19,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-vue": "^9.20.1",
     "husky": "^9.0.6",
-    "lint-staged": "^15.2.0",
+    "lint-staged": "^15.2.1",
     "nuxt": "^2.17.3",
     "prettier": "^3.2.4"
   },
