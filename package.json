@@ -17,7 +17,7 @@
     "@commitlint/config-conventional": "^18.6.2",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-vue": "^9.21.1",
+    "eslint-plugin-vue": "^9.22.0",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "nuxt": "^2.17.3",
