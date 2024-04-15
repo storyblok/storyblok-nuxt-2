@@ -31,7 +31,7 @@
     "node-abort-controller": "^3.1.1"
   },
   "devDependencies": {
-    "@nuxtjs/composition-api": "^0.33.1",
+    "@nuxtjs/composition-api": "^0.34.0",
     "cypress": "^13.7.3",
     "eslint-plugin-cypress": "^2.15.1",
     "start-server-and-test": "^2.0.3",
